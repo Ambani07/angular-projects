@@ -31,5 +31,9 @@ export class AuthService {
   getAuth(): Observable<any> {
     return this.afAuth.authState.pipe(map((auth: any) => auth));
   }
+
+  logout(): void {
+    this.afAuth.signOut();
+  }
 }
 
