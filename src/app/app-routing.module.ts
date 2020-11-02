@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from './guards/auth.guard';
+import { RegisterGuard } from './guards/register.guard';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
@@ -16,7 +17,7 @@ import { ClientDetailsComponent } from './components/client-details/client-detai
 const routes: Routes = [
   {path: '', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'register', component: RegisterComponent, canActivate: [RegisterGuard]},
   {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard]},
   {path: 'client/add', component: AddClientComponent, canActivate: [AuthGuard]},
   {path: 'client/edit/:id', component: EditClientComponent, canActivate: [AuthGuard]},
@@ -28,6 +29,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard],
+  providers: [AuthGuard, RegisterGuard],
 })
 export class AppRoutingModule { }
