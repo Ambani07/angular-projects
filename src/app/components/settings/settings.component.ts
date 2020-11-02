@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
+import { SettingsService } from '../../services/settings.service';
+import { Settings } from '../../models/Settings';
 
 @Component({
   selector: 'app-settings',
@@ -6,10 +10,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
+  settings: Settings;
 
-  constructor() { }
+  constructor(private flashMessage: FlashMessagesService,
+              private router: Router,
+              private settingsService: SettingsService) { }
 
   ngOnInit(): void {
+    this.settings = this.settingsService.getSettings();
+  }
+
+  onSubmit(): void {
+    this.settingsService.changeSettings(this.settings);
+    this.flashMessage.show('Settings saved', {
+      cssClass: 'alert-success', timeout: 4000
+    });
   }
 
 }
